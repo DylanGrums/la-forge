@@ -1,0 +1,41 @@
+<div class="max-w-sm mx-auto w-full px-4 py-8 text-white">
+
+    <h1 class="text-3xl text-slate-200 font-bold mb-6">Create your Account ✨</h1>
+    <!-- Form -->
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1" for="username">Username <span class="text-rose-500">*</span></label>
+                <input id="username" class="form-input w-full text-neutral-800" formControlName="username" type="text" />
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1" for="email">Email <span class="text-rose-500">*</span></label>
+                <input id="email" class="form-input w-full text-neutral-800" formControlName="email" type="email" />
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1" for="password">Password </label>
+                <input id="password" class="form-input w-full text-neutral-800" formControlName="password" type="password" autocomplete="on" />
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1" for="confirmPassword">Confirm password </label>
+                <input id="confirmPassword" class="form-input w-full text-neutral-800" formControlName="confirmPassword" type="confirmPassword" autocomplete="on" />
+            </div>
+        </div>
+        <div class="flex items-center justify-between mt-6">
+            <div class="mr-1">
+                <label class="flex items-center">
+                    <input type="checkbox" class="form-checkbox" />
+                    <span class="text-sm ml-2">Email me about product news.</span>
+                </label>
+            </div>
+            <button type="submit" class="btn p-1 text-slate-200 bg-la-forge-bg-tertiary active:bg-la-forge-bg-tertiary focus:text-slate-300 focus:bg-la-forge-bg-tertiary hover:bg-la-forge-primary hover:text-slate-300">Valider</button>
+        </div>
+</form>
+<!-- Footer -->
+<div class="pt-5 mt-6 border-t border-slate-200">
+    <div class="text-sm">
+        Have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" href="signin.html">Sign In</a>
+    </div>
+</div>
+
+</div>

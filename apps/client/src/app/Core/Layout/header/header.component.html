@@ -1,0 +1,37 @@
+<header>
+    <div class="px-4">
+        <div class="flex items-center justify-between h-16 -mb-px">
+
+            <!-- Header: Left side -->
+            <div class="flex">
+
+                <!-- Hamburger button -->
+                <button class="text-slate-500 hover:text-slate-600 lg:hidden" (click)="toggleSidebar.emit()" aria-controls="sidebar" [attr.aria-expanded]="sidebarOpen">
+                  <span class="sr-only">Open sidebar</span>
+                  <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="5" width="16" height="2" />
+                    <rect x="4" y="11" width="16" height="2" />
+                    <rect x="4" y="17" width="16" height="2" />
+                  </svg>
+                </button>
+            </div>
+
+            <!-- Header: Right side -->
+            <div class="flex items-center space-x-3">
+
+                <img src="../../../../assets/icons/bell.svg" alt="" srcset="">
+
+                <div class="relative inline-flex" align="right">
+                    <button *ngIf="user$ | async" routerLink="profile" class="inline-flex justify-center  items-center group">
+                            <img class="w-8 h-8 rounded-full" [src]="(user$ | async)?.avatar" width="32" height="32" alt="User" />
+                            <div class="flex items-center truncate">
+                                <span class="truncate ml-2 text-sm font-medium group-hover:text-slate-100">{{(user$ | async)?.username}}</span>
+                            </div>
+                        </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</header>

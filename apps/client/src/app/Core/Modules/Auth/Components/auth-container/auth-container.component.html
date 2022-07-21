@@ -1,0 +1,33 @@
+<div class="bg-la-forge-bg-secondary relative flex overflow-hidden">
+
+    <!-- Content -->
+    <div class="w-full md:w-1/2">
+
+        <div class="min-h-screen h-full flex flex-col after:flex-1">
+
+            <!-- Header -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between h-16 px-1">
+                    <!-- Logo -->
+                    <a class="block mx-4 my-8" href="index.html">
+                        <!-- <img style="width: 80px;" src="../../../../../../assets/images/logo.png" alt="" srcset=""> -->
+                        <span class="text-xl text-white">LaForge</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="max-w-sm mx-auto px-4 py-8">
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Image -->
+    <div class="hidden md:flex absolute md:py-32 md:px-8 lg:p-32 flex align-center top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
+        <img src="../../../../../../assets/images/robot.png" alt="" srcset="">
+    </div>
+    <!-- <img class="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block" src="images/auth-decoration.png" width="218" height="224" alt="Authentication decoration" /> -->
+</div>

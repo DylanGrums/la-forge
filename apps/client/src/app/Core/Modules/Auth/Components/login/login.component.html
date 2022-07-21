@@ -1,0 +1,30 @@
+<div class="max-w-sm mx-auto px-4 py-8 text-white">
+        
+    <h1 class="text-3xl text-slate-200 font-bold mb-6">Welcome back! ✨</h1>
+    <!-- Form -->
+    <form [formGroup]="loginForm">
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1 text-white" for="email">Email Address</label>
+                <input id="email" formControlName="email" class="form-input w-full text-neutral-800" type="email" />
+            </div>
+            <div>
+                <label class="block text-sm font-medium mb-1 text-white" for="password">Password</label>
+                <input id="password"  formControlName="password" class="form-input w-full text-neutral-800" type="password" autocomplete="on" />
+            </div>
+        </div>
+        <div class="flex items-center justify-between mt-6">
+            <div class="mr-1">
+                <a class="text-sm underline hover:no-underline" href="reset-password.html">Forgot Password?</a>
+            </div>
+            <button type="submit" class="btn p-1 text-slate-200 bg-la-forge-bg-tertiary active:bg-la-forge-bg-tertiary focus:text-slate-300 focus:bg-la-forge-bg-tertiary hover:bg-la-forge-primary hover:text-slate-300">Connexion</button>
+        </div>
+    </form>
+    <!-- Footer -->
+    <div class="pt-5 mt-6 border-t border-slate-200">
+        <div class="text-sm">
+            Don’t you have an account? <a class="font-medium text-indigo-500 hover:text-indigo-600" routerLink="/register">Sign Up</a>
+        </div>
+    </div>
+
+</div>

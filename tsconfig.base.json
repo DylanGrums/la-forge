@@ -13,9 +13,11 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
-      "@la-forge/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@la-forge/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@la-forge/models": ["libs/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

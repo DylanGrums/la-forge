@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from '@la-forge/api-interfaces';
+
+import { AppLogger } from './shared/logger/logger.service';
+import { RequestContext } from './shared/request-context/request-context.dto';
 
 @Injectable()
 export class AppService {
-  getData(): Message {
-    return { message: 'Welcome to api!' };
+  constructor(private readonly logger: AppLogger) {
+    this.logger.setContext(AppService.name);
+  }
+
+  getHello(ctx: RequestContext): string {
+    this.logger.log(ctx, 'Hello world from App service');
+
+    return 'Hello World!';
   }
 }
