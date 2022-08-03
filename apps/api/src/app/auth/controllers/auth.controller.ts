@@ -15,7 +15,6 @@ import {
   BaseApiResponse,
   SwaggerBaseApiResponse,
 } from '../../shared/dtos/base-api-response.dto';
-import { AppLogger } from '../../shared/logger/logger.service';
 import { ReqContext } from '../../shared/request-context/req-context.decorator';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
 import { LoginInput } from '../dtos/auth-login-input.dto';
@@ -32,9 +31,7 @@ import { AuthService } from '../services/auth.service';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly logger: AppLogger,
   ) {
-    this.logger.setContext(AuthController.name);
     console.log('????');
     
   }
@@ -57,21 +54,19 @@ export class AuthController {
     @ReqContext() ctx: RequestContext,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Body() credential: LoginInput,
-  ): BaseApiResponse<AuthTokenOutput> {
-    this.logger.log(ctx, `${this.login.name} was called`);
-
+  ): AuthTokenOutput {    
     const authToken = this.authService.login(ctx);
-    return { data: authToken, meta: {} };
+    return authToken
   }
 
   @Post('/register')
-  // @ApiOperation({
-  //   summary: 'User registration API',
-  // })
-  // @ApiResponse({
-  //   status: HttpStatus.CREATED,
-  //   type: SwaggerBaseApiResponse(RegisterOutput),
-  // })
+  @ApiOperation({
+    summary: 'User registration API',
+  })
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    type: SwaggerBaseApiResponse(RegisterOutput),
+  })
   async registerLocal(
     @ReqContext() ctx: RequestContext,
     @Body() input: RegisterInput,
@@ -101,10 +96,9 @@ export class AuthController {
     @ReqContext() ctx: RequestContext,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @Body() credential: RefreshTokenInput,
-  ): Promise<BaseApiResponse<AuthTokenOutput>> {
-    this.logger.log(ctx, `${this.refreshToken.name} was called`);
+  ): Promise<AuthTokenOutput> {
 
     const authToken = await this.authService.refreshToken(ctx);
-    return { data: authToken, meta: {} };
+    return authToken;
   }
 }

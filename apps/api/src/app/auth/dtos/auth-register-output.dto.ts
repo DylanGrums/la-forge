@@ -26,6 +26,10 @@ export class RegisterOutput {
 
   @Expose()
   @ApiProperty()
+  avatar: string;
+
+  @Expose()
+  @ApiProperty()
   isAccountDisabled: boolean;
 
   @Expose()

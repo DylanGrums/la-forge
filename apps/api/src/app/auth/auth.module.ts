@@ -18,13 +18,14 @@ import { LocalStrategy } from './strategies/local.strategy';
     PassportModule.register({ defaultStrategy: STRATEGY_JWT_AUTH }),
     JwtModule.registerAsync({
       imports: [SharedModule],
-      useFactory: async (configService: ConfigService) => ({
-        publicKey: configService.get<string>('jwt.publicKey'),
-        privateKey: configService.get<string>('jwt.privateKey'),
-        signOptions: {
-          algorithm: 'RS256',
-        },
-      }),
+      useFactory: async (configService: ConfigService) => {
+        return {
+          secret: configService.get<string>('JWT_SECRET'),
+          signOptions: {
+            expiresIn: configService.get<string>('JWT_ACCESS_TOKEN_EXP_IN_SEC'),
+          },
+        };
+      },
       inject: [ConfigService],
     }),
     UserModule,

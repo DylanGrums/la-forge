@@ -11,7 +11,6 @@ import { AuthGuard } from './Shared/Guards/auth-guard';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AuthState } from './Core/Modules/Auth/Store/State/auth.state';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,14 +20,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgxsModule.forRoot([AuthState],
       { developmentMode: !environment.production }
     ),
-    NgxsStoragePluginModule.forRoot({
-      key: 'auth.token'
-    }),
     NgxsReduxDevtoolsPluginModule.forRoot({
       disabled: environment.production,
     }),
     NgxsLoggerPluginModule.forRoot({
-      disabled: true,
+      disabled: false,
     }),
     BrowserModule,
     LayoutModule,

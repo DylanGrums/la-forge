@@ -11,7 +11,6 @@ import { RolesGuard } from '../../auth/guards/roles.guard';
 
 import { SwaggerBaseApiResponse, BaseApiErrorResponse, BaseApiResponse } from '../../shared/dtos/base-api-response.dto';
 import { PaginationParamsDto } from '../../shared/dtos/pagination-params.dto';
-import { AppLogger } from '../../shared/logger/logger.service';
 import { ReqContext } from '../../shared/request-context/req-context.decorator';
 import { RequestContext } from '../../shared/request-context/request-context.dto';
 
@@ -24,16 +23,14 @@ import { UserService } from '../services/user.service';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly logger: AppLogger,
   ) {
-    this.logger.setContext(UserController.name);
   }
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get('me')
+  @Get('connected')
   @ApiOperation({
-    summary: 'Get user me API',
+    summary: 'Get connected user API',
   })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -45,11 +42,10 @@ export class UserController {
   })
   async getMyProfile(
     @ReqContext() ctx: RequestContext,
-  ): Promise<BaseApiResponse<UserOutput>> {
-    this.logger.log(ctx, `${this.getMyProfile.name} was called`);
+  ): Promise<UserOutput> {
 
     const user = await this.userService.findById(ctx, ctx.user.id);
-    return { data: user, meta: {} };
+    return user
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -71,7 +67,6 @@ export class UserController {
     @ReqContext() ctx: RequestContext,
     @Query() query: PaginationParamsDto,
   ): Promise<BaseApiResponse<UserOutput[]>> {
-    this.logger.log(ctx, `${this.getUsers.name} was called`);
 
     const { users, count } = await this.userService.getUsers(
       ctx,
@@ -101,7 +96,6 @@ export class UserController {
     @ReqContext() ctx: RequestContext,
     @Param('id') id: number,
   ): Promise<BaseApiResponse<UserOutput>> {
-    this.logger.log(ctx, `${this.getUser.name} was called`);
 
     const user = await this.userService.getUserById(ctx, id);
     return { data: user, meta: {} };
@@ -127,7 +121,6 @@ export class UserController {
     @Param('id') userId: number,
     @Body() input: UpdateUserInput,
   ): Promise<BaseApiResponse<UserOutput>> {
-    this.logger.log(ctx, `${this.updateUser.name} was called`);
 
     const user = await this.userService.updateUser(ctx, userId, input);
     return { data: user, meta: {} };

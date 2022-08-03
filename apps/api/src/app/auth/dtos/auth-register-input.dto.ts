@@ -36,4 +36,5 @@ export class RegisterInput {
   // These keys can only be set by ADMIN user.
   roles: ROLE[] = [ROLE.USER];
   isAccountDisabled: boolean;
+  avatar: string;
 }

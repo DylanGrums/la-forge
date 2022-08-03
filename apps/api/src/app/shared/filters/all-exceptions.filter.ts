@@ -10,7 +10,6 @@ import { Request, Response } from 'express';
 
 import { REQUEST_ID_TOKEN_HEADER } from '../constants';
 import { BaseApiException } from '../exceptions/base-api.exception';
-import { AppLogger } from '../logger/logger.service';
 import { createRequestContext } from '../request-context/util';
 
 @Catch()
@@ -18,9 +17,7 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
   /** set logger context */
   constructor(
     private config: ConfigService,
-    private readonly logger: AppLogger,
   ) {
-    this.logger.setContext(AllExceptionsFilter.name);
   }
 
   catch(exception: T, host: ArgumentsHost): any {
@@ -77,10 +74,6 @@ export class AllExceptionsFilter<T> implements ExceptionFilter {
       requestId,
       timestamp,
     };
-    this.logger.warn(requestContext, error.message, {
-      error,
-      stack,
-    });
 
     // Suppress original internal server error details in prod mode
     const isProMood = this.config.get<string>('env') !== 'development';

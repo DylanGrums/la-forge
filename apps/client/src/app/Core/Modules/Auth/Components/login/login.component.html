@@ -2,11 +2,11 @@
         
     <h1 class="text-3xl text-slate-200 font-bold mb-6">Welcome back! ✨</h1>
     <!-- Form -->
-    <form [formGroup]="loginForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="space-y-4">
             <div>
-                <label class="block text-sm font-medium mb-1 text-white" for="email">Email Address</label>
-                <input id="email" formControlName="email" class="form-input w-full text-neutral-800" type="email" />
+                <label class="block text-sm font-medium mb-1 text-white" for="username">Username</label>
+                <input id="username" formControlName="username" class="form-input w-full text-neutral-800" type="username" />
             </div>
             <div>
                 <label class="block text-sm font-medium mb-1 text-white" for="password">Password</label>

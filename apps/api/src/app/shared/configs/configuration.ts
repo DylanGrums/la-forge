@@ -8,14 +8,7 @@ export default (): any => ({
     pass: process.env.POSTGRES_PASSWORD,
   },
   jwt: {
-    publicKey: Buffer.from(
-      process.env.JWT_PUBLIC_KEY_BASE64,
-      'base64',
-    ).toString('utf8'),
-    privateKey: Buffer.from(
-      process.env.JWT_PRIVATE_KEY_BASE64,
-      'base64',
-    ).toString('utf8'),
+    secret: process.env.JWT_SECRET,
     accessTokenExpiresInSec: parseInt(
       process.env.JWT_ACCESS_TOKEN_EXP_IN_SEC,
       10,

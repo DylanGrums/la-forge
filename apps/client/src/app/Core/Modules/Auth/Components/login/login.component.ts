@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this._fb.group({
-      email: [null, [Validators.email, Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.minLength(6), Validators.required]]
     });
   }
@@ -40,18 +40,22 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
-      return;
-    }
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
 
     const formatedUser = {
-      email: this.loginForm.value['email'] as string,
+      username: this.loginForm.value['username'] as string,
       password: this.loginForm.value['password'] as string,
     }
+    console.log('ueh');
+    
     this._authManager.login(formatedUser).subscribe({
       next: (res) => {
-        if (res?.token) {
-          this._store.dispatch(new SetToken(res?.token));
+        console.log(res);
+        
+        if (res) {
+          this._store.dispatch(new SetToken(res));
         }
         this._router.navigate(['/'])
       },

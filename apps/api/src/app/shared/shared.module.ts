@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
 import { configModuleOptions } from './configs/module-options';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
-import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { AppLoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -21,30 +18,28 @@ import { AppLoggerModule } from './logger/logger.module';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [
-          __dirname + "/entity/*.ts"
-      ],
         // Timezone configured on the MySQL server.
         // This is used to typecast server date/time values to JavaScript Date object and vice versa.
         timezone: 'Z',
-        synchronize: false,
+        synchronize: true,
         debug: configService.get<string>('env') === 'development',
-        migrationsTableName: "migrations",
-        migrations: ["src/migrations/*.ts"],
+        migrations: [__dirname + '../../migrations/*{.ts,.js}'],
+        autoLoadEntities: true,
         cli: {
-            "migrationsDir": "src/migrations"
-        }
+          migrationsDir: __dirname + '../../migrations',
+        },
+        extra: {
+          charset: 'utf8mb4_unicode_ci',
+        },
       }),
     }),
-    AppLoggerModule,
   ],
-  exports: [AppLoggerModule, ConfigModule],
+  exports: [ConfigModule],
   providers: [
-
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

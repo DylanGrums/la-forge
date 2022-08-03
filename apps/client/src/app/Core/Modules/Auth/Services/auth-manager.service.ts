@@ -12,12 +12,12 @@ export class AuthManagerService {
     private _apiHelper: ApiHelperService
   ) { }
 
-  public login(formatedUser: { email: string, password: string }) {
-    return this._apiHelper.post<{ token: AuthToken }>('/auth/login', formatedUser);
+  public login(formatedUser: { username: string, password: string }) {
+    return this._apiHelper.post<AuthToken>('/auth/login', formatedUser);
   }
 
   public confirmMail(token: string) {
-    return this._apiHelper.post<{ token: AuthToken }>('/auth/confirm-email', { token });
+    return this._apiHelper.post<AuthToken>('/auth/confirm-email', { token });
   }
 
   public register(formatedUser: { username: string, email: string, password: string }) {

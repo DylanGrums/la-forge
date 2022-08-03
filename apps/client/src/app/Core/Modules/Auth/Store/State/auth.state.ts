@@ -32,12 +32,27 @@ export class AuthState {
 
     @Selector()
     static token(state: AuthStateModel): AuthToken {
+        if(state.token.accessToken === null || state.token.accessToken === undefined) { 
+            const localToken = localStorage.getItem('token')
+            if (localToken !== null && localToken !== undefined) { 
+                const token = JSON.parse(localToken) as AuthToken;
+                return token
+            }
+        }
         return state.token;
     }
 
     @Selector()
     static isAuthenticated(): boolean {
-        return !!localStorage.getItem('token');
+        const localToken = localStorage.getItem('token')
+        if (localToken !== null && localToken !== undefined) {
+            const token = JSON.parse(localToken) as AuthToken;
+            console.log(token);
+            
+            return token.accessToken !== null && token.accessToken !== undefined
+        } else {
+            return false
+        }
     }
 
     @Selector()
@@ -57,8 +72,13 @@ export class AuthState {
 
     @Action(SetToken)
     setToken(ctx: StateContext<AuthStateModel>, action: SetToken) {
+        console.log(action.payload);
+        
+        localStorage.setItem('token', JSON.stringify(action.payload));
         return this._userManager.getConnectedUser().pipe(
             tap((result) => {
+                console.log(result);
+                
                 ctx.patchState({
                     token: action.payload,
                     username: result?.username,

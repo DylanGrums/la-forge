@@ -25,7 +25,9 @@ export class AuthInterceptor implements HttpInterceptor {
     ): Observable<any> {
         const token = this._store.selectSnapshot(AuthState.token);
         const isAuth = request.url.indexOf("auth/") !== -1;
-
+        console.log(token);
+        console.log(isAuth);
+        
         if (!isAuth && token && token.accessToken) {
             request = this.addToken(
                 request,
@@ -55,6 +57,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     private addToken(request: HttpRequest<any>, token: string) {
+        console.log(token);
+        
         request = request.clone({
             setHeaders: {
                 Authorization: `Bearer ${token}`,

@@ -11,11 +11,11 @@ export class JwtRefreshStrategy extends PassportStrategy(
   Strategy,
   STRATEGY_JWT_REFRESH,
 ) {
-  constructor(private readonly configService: ConfigService) {
+  constructor(configService: ConfigService) {    
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
-      secretOrKey: configService.get<string>('jwt.publicKey'),
-      algorithms: ['RS256'],
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
 
